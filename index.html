@@ -542,34 +542,10 @@
             if (activeContent) activeContent.classList.add('active');
         }
 
-        function playGoogleTTS(text, card) {
-            if (currentlyPlaying) {
-                currentlyPlaying.classList.remove('playing');
-            }
-            
-            card.classList.add('playing');
-            currentlyPlaying = card;
-            
-            const audio = new Audio();
-            const encodedText = encodeURIComponent(text);
-            audio.src = `https://translate.google.com/translate_tts?ie=UTF-8&tl=da&client=tw-ob&q=${encodedText}&ttsspeed=0.3`;
-            
-            audio.onended = () => {
-                card.classList.remove('playing');
-                currentlyPlaying = null;
-            };
-            
-            audio.onerror = () => {
-                card.classList.remove('playing');
-                currentlyPlaying = null;
-            };
-            
-            audio.play();
-        }
-
         function playAudio(text, card) {
             if (currentlyPlaying) {
                 currentlyPlaying.classList.remove('playing');
+                speechSynthesis.cancel();
             }
             
             card.classList.add('playing');
@@ -579,27 +555,33 @@
             
             const utterance = new SpeechSynthesisUtterance(cleanText);
             utterance.lang = 'da-DK';
-            utterance.rate = 0.4;
+            utterance.rate = 0.5;
             utterance.pitch = 1;
+            utterance.volume = 1;
             
             utterance.onend = () => {
                 card.classList.remove('playing');
                 currentlyPlaying = null;
             };
             
-            speechSynthesis.cancel();
+            utterance.onerror = (event) => {
+                console.error('Speech synthesis error:', event);
+                card.classList.remove('playing');
+                currentlyPlaying = null;
+            };
             
-            setTimeout(() => {
-                const voices = speechSynthesis.getVoices();
-                const danishVoice = voices.find(voice => voice.lang.startsWith('da'));
-                if (danishVoice) {
-                    utterance.voice = danishVoice;
-                }
-                speechSynthesis.speak(utterance);
-            }, 100);
+            const voices = speechSynthesis.getVoices();
+            const danishVoice = voices.find(voice => voice.lang === 'da-DK') || 
+                               voices.find(voice => voice.lang.startsWith('da'));
+            
+            if (danishVoice) {
+                utterance.voice = danishVoice;
+            }
+            
+            speechSynthesis.speak(utterance);
         }
 
-        function createCard(item, useGoogleTTS = false) {
+        function createCard(item) {
             const card = document.createElement('div');
             card.className = 'item-card';
             card.innerHTML = `
@@ -608,11 +590,7 @@
                 <div class="item-translation">${item.translation}</div>
             `;
             card.onclick = () => {
-                if (useGoogleTTS) {
-                    playGoogleTTS(item.danish, card);
-                } else {
-                    playAudio(item.danish, card);
-                }
+                playAudio(item.danish, card);
             };
             return card;
         }
@@ -627,37 +605,37 @@
             
             const alphabetGrid = document.getElementById('alphabetGrid');
             data.alphabet.forEach(item => {
-                alphabetGrid.appendChild(createCard(item, true));
+                alphabetGrid.appendChild(createCard(item));
             });
 
             const questionsGrid = document.getElementById('questionsGrid');
             data.questions.forEach(item => {
-                questionsGrid.appendChild(createCard(item, true));
+                questionsGrid.appendChild(createCard(item));
             });
 
             const questionExamplesGrid = document.getElementById('questionExamplesGrid');
             data.questionExamples.forEach(item => {
-                questionExamplesGrid.appendChild(createCard(item, true));
+                questionExamplesGrid.appendChild(createCard(item));
             });
 
             const personalPronounsGrid = document.getElementById('personalPronounsGrid');
             data.personalPronouns.forEach(item => {
-                personalPronounsGrid.appendChild(createCard(item, true));
+                personalPronounsGrid.appendChild(createCard(item));
             });
 
             const possessivePronounsGrid = document.getElementById('possessivePronounsGrid');
             data.possessivePronouns.forEach(item => {
-                possessivePronounsGrid.appendChild(createCard(item, true));
+                possessivePronounsGrid.appendChild(createCard(item));
             });
 
             const numbersGrid = document.getElementById('numbersGrid');
             data.numbers.forEach(item => {
-                numbersGrid.appendChild(createCard(item, true));
+                numbersGrid.appendChild(createCard(item));
             });
 
             const complexNumbersGrid = document.getElementById('complexNumbersGrid');
             data.complexNumbers.forEach(item => {
-                complexNumbersGrid.appendChild(createCard(item, true));
+                complexNumbersGrid.appendChild(createCard(item));
             });
         }
 
