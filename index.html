@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вчимо Данську - På Vej til Dansk</title>
+    <style>
+        :root {
+            --color-primary: #C60C30;
+            --color-primary-hover: #A00A26;
+            --color-white: #FFFFFF;
+            --color-bg: #F5F7FA;
+            --color-card: #FFFFFF;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-border: #E5E7EB;
+            --color-success: #10B981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #E01E37 100%);
+            color: var(--color-white);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .flag-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-top: 8px;
+        }
+
+        .module-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .module-btn {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #E01E37 100%);
+            color: var(--color-white);
+            border: none;
+            padding: 18px 35px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(198, 12, 48, 0.3);
+        }
+
+        .module-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(198, 12, 48, 0.4);
+        }
+
+        .module-btn.active {
+            box-shadow: 0 8px 16px rgba(198, 12, 48, 0.5);
+        }
+
+        .module-content {
+            display: none;
+        }
+
+        .module-content.active {
+            display: block;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab {
+            background: var(--color-card);
+            border: 2px solid var(--color-border);
+            padding: 15px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--color-text);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .item-card {
+            background: var(--color-card);
+            border: 2px solid var(--color-border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .item-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .item-card.playing {
+            border-color: var(--color-success);
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+        }
+
+        .item-danish {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .item-transcription {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .item-translation {
+            font-size: 1.1rem;
+            color: var(--color-text);
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-left: 4px solid #F59E0B;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .info-box h3 {
+            color: #92400E;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .info-box p {
+            color: #78350F;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .pronouns-section {
+            margin-bottom: 30px;
+        }
+
+        .pronouns-title {
+            font-size: 1.4rem;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .speaker-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-left: 8px;
+            opacity: 0.6;
+        }
+
+        .item-card:hover .speaker-icon {
+            opacity: 1;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .module-btn {
+                width: 100%;
+                padding: 15px 20px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                width: 100%;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/5e670d42-c5fe-4e99-96b9-ff562832959b.png" alt="Danish Flag" class="flag-icon">
+            <div>
+                <h1>Вчимо Данську 🇩🇰</h1>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="module-selector">
+            <button class="module-btn active" onclick="showModule('module1')">📖 Модуль 1: Основи</button>
+        </div>
+
+        <div id="module1" class="module-content active">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('alphabet')">📚 Алфавіт</button>
+                <button class="tab" onclick="showTab('questions')">❓ Питальні слова</button>
+                <button class="tab" onclick="showTab('pronouns')">👤 Займенники</button>
+                <button class="tab" onclick="showTab('numbers')">🔢 Цифри</button>
+            </div>
+
+            <div id="alphabet" class="content active">
+            <h2 class="section-title">Данський алфавіт - Danske alfabet</h2>
+            <div class="info-box">
+                <h3>Про данський алфавіт</h3>
+                <p>Данський алфавіт складається з 29 літер: 26 латинських + 3 спеціальні літери (Æ, Ø, Å). Клацніть на будь-яку літеру, щоб почути її вимову!</p>
+            </div>
+            <div class="items-grid" id="alphabetGrid"></div>
+        </div>
+
+        <div id="questions" class="content">
+            <h2 class="section-title">Питальні слова - Spørgeord</h2>
+            <div class="info-box">
+                <h3>HV-слова (HV-ord)</h3>
+                <p>У данській мові питальні слова називають "HV-ord" (ХВ-слова), тому що більшість з них починаються з букв "hv". Це основні слова для формування запитань.</p>
+            </div>
+            <div class="items-grid" id="questionsGrid"></div>
+            
+            <div class="pronouns-section">
+                <h3 class="pronouns-title">Приклади питальних речень</h3>
+                <div class="info-box">
+                    <h3>Як будувати питальні речення</h3>
+                    <p><strong>Порядок слів:</strong> Питальне слово + дієслово + підмет + решта речення<br>
+                    <strong>Формула:</strong> HV-ord + verbum + subjekt + resten af sætningen</p>
+                </div>
+                <div class="items-grid" id="questionExamplesGrid"></div>
+            </div>
+        </div>
+
+        <div id="pronouns" class="content">
+            <h2 class="section-title">Займенники - Pronominer</h2>
+            
+            <div class="pronouns-section">
+                <h3 class="pronouns-title">Особові займенники (Personlige pronominer)</h3>
+                <div class="info-box">
+                    <p>Особові займенники вказують на особу або предмет: я, ти, він, вона, воно, ми, ви, вони.</p>
+                </div>
+                <div class="items-grid" id="personalPronounsGrid"></div>
+            </div>
+
+            <div class="pronouns-section">
+                <h3 class="pronouns-title">Присвійні займенники (Possessive pronominer)</h3>
+                <div class="info-box">
+                    <p>Присвійні займенники показують належність: мій, твій, його, її, наш, ваш, їхній.</p>
+                </div>
+                <div class="items-grid" id="possessivePronounsGrid"></div>
+            </div>
+        </div>
+
+        <div id="numbers" class="content">
+            <h2 class="section-title">Цифри - Tal</h2>
+            <div class="info-box">
+                <h3>Данські числівники</h3>
+                <p>Данські числівники від 0 до 20 та десятки. Клацніть на цифру, щоб почути її вимову!</p>
+            </div>
+            <div class="items-grid" id="numbersGrid"></div>
+            
+            <div class="pronouns-section">
+                <h3 class="pronouns-title">Складні числа</h3>
+                <div class="info-box">
+                    <h3>Як будувати складні числа</h3>
+                    <p><strong>Від 21 до 99:</strong> Одиниці + og + десятки (наприклад: 31 = enogtredive = "один-і-тридцять")<br>
+                    <strong>Від 100:</strong> Сотні + og + решта (наприклад: 456 = firehundrede og seksoghalvtreds)<br>
+                    <strong>Від 1000:</strong> Тисячі + решта (наприклад: 8912 = ottetusind nihundrede og tolv)</p>
+                </div>
+                <div class="items-grid" id="complexNumbersGrid"></div>
+            </div>
+        </div>
+        </div>
+
+        <footer>
+            <p>Створено Дімою із любов'ю 💙💛</p>
+        </footer>
+    </div>
+
+    <script>
+        const data = {
+            alphabet: [
+                { danish: 'A', transcription: '[ɛː]', translation: 'А', audio: 'a' },
+                { danish: 'B', transcription: '[beː]', translation: 'Б', audio: 'b' },
+                { danish: 'C', transcription: '[seː]', translation: 'Ц', audio: 'c' },
+                { danish: 'D', transcription: '[deː]', translation: 'Д', audio: 'd' },
+                { danish: 'E', transcription: '[eː]', translation: 'Е', audio: 'e' },
+                { danish: 'F', transcription: '[ɛf]', translation: 'Ф', audio: 'f' },
+                { danish: 'G', transcription: '[ɡeː]', translation: 'Г', audio: 'g' },
+                { danish: 'H', transcription: '[hɔː]', translation: 'Х', audio: 'h' },
+                { danish: 'I', transcription: '[iː]', translation: 'І', audio: 'i' },
+                { danish: 'J', transcription: '[jʌð]', translation: 'Й', audio: 'j' },
+                { danish: 'K', transcription: '[kʰɔː]', translation: 'К', audio: 'k' },
+                { danish: 'L', transcription: '[ɛl]', translation: 'Л', audio: 'l' },
+                { danish: 'M', transcription: '[ɛm]', translation: 'М', audio: 'm' },
+                { danish: 'N', transcription: '[ɛn]', translation: 'Н', audio: 'n' },
+                { danish: 'O', transcription: '[oː]', translation: 'О', audio: 'o' },
+                { danish: 'P', transcription: '[pʰeː]', translation: 'П', audio: 'p' },
+                { danish: 'Q', transcription: '[kʰuː]', translation: 'К', audio: 'q' },
+                { danish: 'R', transcription: '[ɛɐ̯]', translation: 'Р', audio: 'r' },
+                { danish: 'S', transcription: '[ɛs]', translation: 'С', audio: 's' },
+                { danish: 'T', transcription: '[tˢeː]', translation: 'Т', audio: 't' },
+                { danish: 'U', transcription: '[uː]', translation: 'У', audio: 'u' },
+                { danish: 'V', transcription: '[veː]', translation: 'В', audio: 'v' },
+                { danish: 'W', transcription: '[ˈdɔbəlˌveː]', translation: 'В (подвійне)', audio: 'w' },
+                { danish: 'X', transcription: '[ɛɡs]', translation: 'Кс', audio: 'x' },
+                { danish: 'Y', transcription: '[yː]', translation: 'Ю', audio: 'y' },
+                { danish: 'Z', transcription: '[sɛð]', translation: 'З', audio: 'z' },
+                { danish: 'Æ', transcription: '[ɛː]', translation: 'Е (спеціальна)', audio: 'ae' },
+                { danish: 'Ø', transcription: '[øː]', translation: 'Ьо (спеціальна)', audio: 'oe' },
+                { danish: 'Å', transcription: '[ɔː]', translation: 'О (спеціальна)', audio: 'aa' }
+            ],
+            questions: [
+                { danish: 'Hvem', transcription: '[vɛm]', translation: 'Хто', audio: 'hvem' },
+                { danish: 'Hvad', transcription: '[vað]', translation: 'Що', audio: 'hvad' },
+                { danish: 'Hvor', transcription: '[vɔɐ̯]', translation: 'Де / Куди', audio: 'hvor' },
+                { danish: 'Hvornår', transcription: '[vɔˈnɔːˀ]', translation: 'Коли', audio: 'hvornar' },
+                { danish: 'Hvordan', transcription: '[vɔˈdan]', translation: 'Як', audio: 'hvordan' },
+                { danish: 'Hvorfor', transcription: '[vɔˈfɒːˀ]', translation: 'Чому', audio: 'hvorfor' },
+                { danish: 'Hvilken', transcription: '[ˈvilɡən]', translation: 'Який / Яка (однина)', audio: 'hvilken' },
+                { danish: 'Hvilke', transcription: '[ˈvilɡə]', translation: 'Які (множина)', audio: 'hvilke' },
+                { danish: 'Hvis', transcription: '[vis]', translation: 'Чий / Чия', audio: 'hvis' }
+            ],
+            questionExamples: [
+                { danish: 'Hvem er du?', transcription: '[vɛm æɐ̯ du]', translation: 'Хто ти?' },
+                { danish: 'Hvad hedder du?', transcription: '[vað ˈheðɐ du]', translation: 'Як тебе звати?' },
+                { danish: 'Hvor bor du?', transcription: '[vɔɐ̯ boːˀɐ̯ du]', translation: 'Де ти живеш?' },
+                { danish: 'Hvornår kommer du?', transcription: '[vɔˈnɔːˀ ˈkʌmɐ du]', translation: 'Коли ти прийдеш?' },
+                { danish: 'Hvordan har du det?', transcription: '[vɔˈdan hɑ du de]', translation: 'Як твої справи?' }
+            ],
+            complexNumbers: [
+                { danish: '31', transcription: 'enogtredive [ˈenʌˌtʁɛðʊ̯ə]', translation: '31 - Тридцять один', audio: 'enogtredive' },
+                { danish: '56', transcription: 'seksoghalvtreds [ˈsɑɪ̯sʌˌhælˌtʁæs]', translation: '56 - П\'ятдесят шість', audio: 'seksoghalvtreds' },
+                { danish: '99', transcription: 'nioghalvfems [ˈniʌˌhælˌfɛms]', translation: '99 - Дев\'яносто дев\'ять', audio: 'nioghalvfems' },
+                { danish: '100', transcription: 'ethundrede [ˈeðˌhunəðə]', translation: '100 - Сто', audio: 'ethundrede' },
+                { danish: '456', transcription: 'firehundrede og seksoghalvtreds', translation: '456 - Чотириста п\'ятдесят шість', audio: 'firehundrede og seksoghalvtreds' },
+                { danish: '761', transcription: 'syvhundrede og enogtres', translation: '761 - Сімсот шістдесят один', audio: 'syvhundrede og enogtres' },
+                { danish: '1000', transcription: 'ettusind [ˈeðˌtusənˀ]', translation: '1000 - Одна тисяча', audio: 'ettusind' },
+                { danish: '2024', transcription: 'totusind og fireogtyve', translation: '2024 - Дві тисячі двадцять чотири', audio: 'totusind og fireogtyve' }
+            ],
+            personalPronouns: [
+                { danish: 'Jeg', transcription: '[jɑɪ̯]', translation: 'Я', audio: 'jeg' },
+                { danish: 'Du', transcription: '[du]', translation: 'Ти', audio: 'du' },
+                { danish: 'Han', transcription: '[han]', translation: 'Він', audio: 'han' },
+                { danish: 'Hun', transcription: '[hun]', translation: 'Вона', audio: 'hun' },
+                { danish: 'Den', transcription: '[dɛn]', translation: 'Він/Вона (для предметів спільного роду)', audio: 'den' },
+                { danish: 'Det', transcription: '[de]', translation: 'Воно (для предметів середнього роду)', audio: 'det' },
+                { danish: 'Vi', transcription: '[vi]', translation: 'Ми', audio: 'vi' },
+                { danish: 'I', transcription: '[iː]', translation: 'Ви (множина)', audio: 'I' },
+                { danish: 'De', transcription: '[di]', translation: 'Вони', audio: 'de' }
+            ],
+            possessivePronouns: [
+                { danish: 'Min', transcription: '[min]', translation: 'Мій (спільний рід)', audio: 'min' },
+                { danish: 'Mit', transcription: '[mid]', translation: 'Моє (середній рід)', audio: 'mit' },
+                { danish: 'Mine', transcription: '[ˈmiːnə]', translation: 'Мої (множина)', audio: 'mine' },
+                { danish: 'Din', transcription: '[din]', translation: 'Твій (спільний рід)', audio: 'din' },
+                { danish: 'Dit', transcription: '[did]', translation: 'Твоє (середній рід)', audio: 'dit' },
+                { danish: 'Dine', transcription: '[ˈdiːnə]', translation: 'Твої (множина)', audio: 'dine' },
+                { danish: 'Hans', transcription: '[hans]', translation: 'Його (належить чоловіку)', audio: 'hans' },
+                { danish: 'Hendes', transcription: '[ˈhenəs]', translation: 'Її (належить жінці)', audio: 'hendes' },
+                { danish: 'Dens', transcription: '[dɛns]', translation: 'Його/її (спільний рід предмета)', audio: 'dens' },
+                { danish: 'Dets', transcription: '[dɛts]', translation: 'Його/її (середній рід предмета)', audio: 'dets' },
+                { danish: 'Vores', transcription: '[ˈvoːɐs]', translation: 'Наш / Наша / Наше', audio: 'vores' },
+                { danish: 'Jeres', transcription: '[ˈjeːɐs]', translation: 'Ваш / Ваша / Ваше', audio: 'jeres' },
+                { danish: 'Deres', transcription: '[ˈdeːɐs]', translation: 'Їхній / Їхня / Їхнє', audio: 'deres' }
+            ],
+            numbers: [
+                { danish: 'Nul', transcription: '[nul]', translation: '0 - Нуль', audio: 'nul' },
+                { danish: 'En', transcription: '[en]', translation: '1 - Один/одна (спільний рід)', audio: 'en' },
+                { danish: 'Et', transcription: '[ed]', translation: '1 - Одне (середній рід)', audio: 'et' },
+                { danish: 'To', transcription: '[toː]', translation: '2 - Два', audio: 'to' },
+                { danish: 'Tre', transcription: '[tʁɛː]', translation: '3 - Три', audio: 'tre' },
+                { danish: 'Fire', transcription: '[ˈfiːɐ]', translation: '4 - Чотири', audio: 'fire' },
+                { danish: 'Fem', transcription: '[fɛm]', translation: '5 - П\'ять', audio: 'fem' },
+                { danish: 'Seks', transcription: '[sɛɡ̊s]', translation: '6 - Шість', audio: 'seks' },
+                { danish: 'Syv', transcription: '[syʊ̯]', translation: '7 - Сім', audio: 'syv' },
+                { danish: 'Otte', transcription: '[ˈʌdə]', translation: '8 - Вісім', audio: 'otte' },
+                { danish: 'Ni', transcription: '[ni]', translation: '9 - Дев\'ять', audio: 'ni' },
+                { danish: 'Ti', transcription: '[ti]', translation: '10 - Десять', audio: 'ti' },
+                { danish: 'Elleve', transcription: '[ɛˈleːʊ̯ə]', translation: '11 - Одинадцять', audio: 'elleve' },
+                { danish: 'Tolv', transcription: '[tʌl]', translation: '12 - Дванадцять', audio: 'tolv' },
+                { danish: 'Tretten', transcription: '[ˈtʁɛdn̩]', translation: '13 - Тринадцять', audio: 'tretten' },
+                { danish: 'Fjorten', transcription: '[ˈfjɔɐ̯dn̩]', translation: '14 - Чотирнадцять', audio: 'fjorten' },
+                { danish: 'Femten', transcription: '[ˈfɛmdn̩]', translation: '15 - П\'ятнадцять', audio: 'femten' },
+                { danish: 'Seksten', transcription: '[ˈsɑɪ̯sdn̩]', translation: '16 - Шістнадцять', audio: 'seksten' },
+                { danish: 'Sytten', transcription: '[ˈsɔdn̩]', translation: '17 - Сімнадцять', audio: 'sytten' },
+                { danish: 'Atten', transcription: '[ˈɑdn̩]', translation: '18 - Вісімнадцять', audio: 'atten' },
+                { danish: 'Nitten', transcription: '[ˈnedn̩]', translation: '19 - Дев\'ятнадцять', audio: 'nitten' },
+                { danish: 'Tyve', transcription: '[ˈtyʊ̯ə]', translation: '20 - Двадцять', audio: 'tyve' },
+                { danish: 'Tredive', transcription: '[ˈtʁɛðʊ̯ə]', translation: '30 - Тридцять', audio: 'tredive' },
+                { danish: 'Fyrre', transcription: '[ˈføːɐ]', translation: '40 - Сорок', audio: 'fyrre' },
+                { danish: 'Halvtreds', transcription: '[ˈhælˌtʁæs]', translation: '50 - П\'ятдесят', audio: 'halvtreds' },
+                { danish: 'Tres', transcription: '[tʁæs]', translation: '60 - Шістдесят', audio: 'tres' },
+                { danish: 'Halvfjerds', transcription: '[ˈhælˌfjæɐ̯s]', translation: '70 - Сімдесят', audio: 'halvfjerds' },
+                { danish: 'Firs', transcription: '[fiɐ̯s]', translation: '80 - Вісімдесят', audio: 'firs' },
+                { danish: 'Halvfems', transcription: '[ˈhælˌfɛms]', translation: '90 - Дев\'яносто', audio: 'halvfems' },
+                { danish: 'Hundrede', transcription: '[ˈhunəðə]', translation: '100 - Сто', audio: 'hundrede' },
+                { danish: 'Tusind', transcription: '[ˈtusənˀ]', translation: '1000 - Тисяча', audio: 'tusind' }
+            ]
+        };
+
+        let currentlyPlaying = null;
+
+        function showModule(moduleName) {
+            const moduleBtns = document.querySelectorAll('.module-btn');
+            const moduleContents = document.querySelectorAll('.module-content');
+            
+            moduleBtns.forEach(btn => btn.classList.remove('active'));
+            moduleContents.forEach(content => content.classList.remove('active'));
+            
+            const activeBtn = document.querySelector(`[data-module="${moduleName}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+            
+            const activeModule = document.getElementById(moduleName);
+            if (activeModule) activeModule.classList.add('active');
+        }
+
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            const activeTab = document.querySelector(`[data-tab="${tabName}"]`);
+            if (activeTab) activeTab.classList.add('active');
+            
+            const activeContent = document.getElementById(tabName);
+            if (activeContent) activeContent.classList.add('active');
+        }
+
+        function playGoogleTTS(text, card) {
+            if (currentlyPlaying) {
+                currentlyPlaying.classList.remove('playing');
+            }
+            
+            card.classList.add('playing');
+            currentlyPlaying = card;
+            
+            const audio = new Audio();
+            const encodedText = encodeURIComponent(text);
+            audio.src = `https://translate.google.com/translate_tts?ie=UTF-8&tl=da&client=tw-ob&q=${encodedText}&ttsspeed=0.3`;
+            
+            audio.onended = () => {
+                card.classList.remove('playing');
+                currentlyPlaying = null;
+            };
+            
+            audio.onerror = () => {
+                card.classList.remove('playing');
+                currentlyPlaying = null;
+            };
+            
+            audio.play();
+        }
+
+        function playAudio(text, card) {
+            if (currentlyPlaying) {
+                currentlyPlaying.classList.remove('playing');
+            }
+            
+            card.classList.add('playing');
+            currentlyPlaying = card;
+            
+            const cleanText = text.trim();
+            
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.lang = 'da-DK';
+            utterance.rate = 0.4;
+            utterance.pitch = 1;
+            
+            utterance.onend = () => {
+                card.classList.remove('playing');
+                currentlyPlaying = null;
+            };
+            
+            speechSynthesis.cancel();
+            
+            setTimeout(() => {
+                const voices = speechSynthesis.getVoices();
+                const danishVoice = voices.find(voice => voice.lang.startsWith('da'));
+                if (danishVoice) {
+                    utterance.voice = danishVoice;
+                }
+                speechSynthesis.speak(utterance);
+            }, 100);
+        }
+
+        function createCard(item, useGoogleTTS = false) {
+            const card = document.createElement('div');
+            card.className = 'item-card';
+            card.innerHTML = `
+                <div class="item-danish">${item.danish}</div>
+                <div class="item-transcription">${item.transcription}</div>
+                <div class="item-translation">${item.translation}</div>
+            `;
+            card.onclick = () => {
+                if (useGoogleTTS) {
+                    playGoogleTTS(item.danish, card);
+                } else {
+                    playAudio(item.danish, card);
+                }
+            };
+            return card;
+        }
+
+        function initializeApp() {
+            // Завантажуємо голоси при ініціалізації
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = () => {
+                    speechSynthesis.getVoices();
+                };
+            }
+            
+            const alphabetGrid = document.getElementById('alphabetGrid');
+            data.alphabet.forEach(item => {
+                alphabetGrid.appendChild(createCard(item, true));
+            });
+
+            const questionsGrid = document.getElementById('questionsGrid');
+            data.questions.forEach(item => {
+                questionsGrid.appendChild(createCard(item, true));
+            });
+
+            const questionExamplesGrid = document.getElementById('questionExamplesGrid');
+            data.questionExamples.forEach(item => {
+                questionExamplesGrid.appendChild(createCard(item, true));
+            });
+
+            const personalPronounsGrid = document.getElementById('personalPronounsGrid');
+            data.personalPronouns.forEach(item => {
+                personalPronounsGrid.appendChild(createCard(item, true));
+            });
+
+            const possessivePronounsGrid = document.getElementById('possessivePronounsGrid');
+            data.possessivePronouns.forEach(item => {
+                possessivePronounsGrid.appendChild(createCard(item, true));
+            });
+
+            const numbersGrid = document.getElementById('numbersGrid');
+            data.numbers.forEach(item => {
+                numbersGrid.appendChild(createCard(item, true));
+            });
+
+            const complexNumbersGrid = document.getElementById('complexNumbersGrid');
+            data.complexNumbers.forEach(item => {
+                complexNumbersGrid.appendChild(createCard(item, true));
+            });
+        }
+
+        initializeApp();
+    </script>
+</body>
+</html>
