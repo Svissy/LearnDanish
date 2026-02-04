@@ -203,11 +203,6 @@
             font-weight: 700;
             color: var(--color-primary);
             margin-bottom: 8px;
-            cursor: pointer;
-        }
-
-        .item-danish:hover {
-            text-shadow: 0 0 8px rgba(198, 12, 48, 0.3);
         }
 
         .item-transcription {
@@ -252,6 +247,18 @@
             color: var(--color-primary);
             margin-bottom: 15px;
             font-weight: 600;
+        }
+
+        .speaker-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-left: 8px;
+            opacity: 0.6;
+        }
+
+        .item-card:hover .speaker-icon {
+            opacity: 1;
         }
 
         footer {
@@ -310,72 +317,72 @@
             </div>
 
             <div id="alphabet" class="content active">
-                <h2 class="section-title">Данський алфавіт - Danske alfabet</h2>
+            <h2 class="section-title">Данський алфавіт - Danske alfabet</h2>
+            <div class="info-box">
+                <h3>Про данський алфавіт</h3>
+                <p>Данський алфавіт складається з 29 літер: 26 латинських + 3 спеціальні літери (Æ, Ø, Å). Клацніть на будь-яку літеру, щоб почути її вимову!</p>
+            </div>
+            <div class="items-grid" id="alphabetGrid"></div>
+        </div>
+
+        <div id="questions" class="content">
+            <h2 class="section-title">Питальні слова - Spørgeord</h2>
+            <div class="info-box">
+                <h3>HV-слова (HV-ord)</h3>
+                <p>У данській мові питальні слова називають "HV-ord" (ХВ-слова), тому що більшість з них починаються з букв "hv". Це основні слова для формування запитань.</p>
+            </div>
+            <div class="items-grid" id="questionsGrid"></div>
+            
+            <div class="pronouns-section">
+                <h3 class="pronouns-title">Приклади питальних речень</h3>
                 <div class="info-box">
-                    <h3>Про данський алфавіт</h3>
-                    <p>Данський алфавіт складається з 29 літер: 26 латинських + 3 спеціальні літери (Æ, Ø, Å). Клацніть на будь-яку літеру, щоб почути її вимову!</p>
+                    <h3>Як будувати питальні речення</h3>
+                    <p><strong>Порядок слів:</strong> Питальне слово + дієслово + підмет + решта речення<br>
+                    <strong>Формула:</strong> HV-ord + verbum + subjekt + resten af sætningen</p>
                 </div>
-                <div class="items-grid" id="alphabetGrid"></div>
+                <div class="items-grid" id="questionExamplesGrid"></div>
             </div>
+        </div>
 
-            <div id="questions" class="content">
-                <h2 class="section-title">Питальні слова - Spørgeord</h2>
+        <div id="pronouns" class="content">
+            <h2 class="section-title">Займенники - Pronominer</h2>
+            
+            <div class="pronouns-section">
+                <h3 class="pronouns-title">Особові займенники (Personlige pronominer)</h3>
                 <div class="info-box">
-                    <h3>HV-слова (HV-ord)</h3>
-                    <p>У данській мові питальні слова називають "HV-ord" (ХВ-слова), тому що більшість з них починаються з букв "hv". Це основні слова для формування запитань.</p>
+                    <p>Особові займенники вказують на особу або предмет: я, ти, він, вона, воно, ми, ви, вони.</p>
                 </div>
-                <div class="items-grid" id="questionsGrid"></div>
-                
-                <div class="pronouns-section">
-                    <h3 class="pronouns-title">Приклади питальних речень</h3>
-                    <div class="info-box">
-                        <h3>Як будувати питальні речення</h3>
-                        <p><strong>Порядок слів:</strong> Питальне слово + дієслово + підмет + решта речення<br>
-                        <strong>Формула:</strong> HV-ord + verbum + subjekt + resten af sætningen</p>
-                    </div>
-                    <div class="items-grid" id="questionExamplesGrid"></div>
-                </div>
+                <div class="items-grid" id="personalPronounsGrid"></div>
             </div>
 
-            <div id="pronouns" class="content">
-                <h2 class="section-title">Займенники - Pronominer</h2>
-                
-                <div class="pronouns-section">
-                    <h3 class="pronouns-title">Особові займенники (Personlige pronominer)</h3>
-                    <div class="info-box">
-                        <p>Особові займенники вказують на особу або предмет: я, ти, він, вона, воно, ми, ви, вони.</p>
-                    </div>
-                    <div class="items-grid" id="personalPronounsGrid"></div>
-                </div>
-
-                <div class="pronouns-section">
-                    <h3 class="pronouns-title">Присвійні займенники (Possessive pronominer)</h3>
-                    <div class="info-box">
-                        <p>Присвійні займенники показують належність: мій, твій, його, її, наш, ваш, їхній.</p>
-                    </div>
-                    <div class="items-grid" id="possessivePronounsGrid"></div>
-                </div>
-            </div>
-
-            <div id="numbers" class="content">
-                <h2 class="section-title">Цифри - Tal</h2>
+            <div class="pronouns-section">
+                <h3 class="pronouns-title">Присвійні займенники (Possessive pronominer)</h3>
                 <div class="info-box">
-                    <h3>Данські числівники</h3>
-                    <p>Данські числівники від 0 до 20 та десятки. Клацніть на цифру, щоб почути її вимову!</p>
+                    <p>Присвійні займенники показують належність: мій, твій, його, її, наш, ваш, їхній.</p>
                 </div>
-                <div class="items-grid" id="numbersGrid"></div>
-                
-                <div class="pronouns-section">
-                    <h3 class="pronouns-title">Складні числа</h3>
-                    <div class="info-box">
-                        <h3>Як будувати складні числа</h3>
-                        <p><strong>Від 21 до 99:</strong> Одиниці + og + десятки (наприклад: 31 = enogtredive = "один-і-тридцять")<br>
-                        <strong>Від 100:</strong> Сотні + og + решта (наприклад: 456 = firehundrede og seksoghalvtreds)<br>
-                        <strong>Від 1000:</strong> Тисячі + решта (наприклад: 8912 = ottetusind nihundrede og tolv)</p>
-                    </div>
-                    <div class="items-grid" id="complexNumbersGrid"></div>
-                </div>
+                <div class="items-grid" id="possessivePronounsGrid"></div>
             </div>
+        </div>
+
+        <div id="numbers" class="content">
+            <h2 class="section-title">Цифри - Tal</h2>
+            <div class="info-box">
+                <h3>Данські числівники</h3>
+                <p>Данські числівники від 0 до 20 та десятки. Клацніть на цифру, щоб почути її вимову!</p>
+            </div>
+            <div class="items-grid" id="numbersGrid"></div>
+            
+            <div class="pronouns-section">
+                <h3 class="pronouns-title">Складні числа</h3>
+                <div class="info-box">
+                    <h3>Як будувати складні числа</h3>
+                    <p><strong>Від 21 до 99:</strong> Одиниці + og + десятки (наприклад: 31 = enogtredive = "один-і-тридцять")<br>
+                    <strong>Від 100:</strong> Сотні + og + решта (наприклад: 456 = firehundrede og seksoghalvtreds)<br>
+                    <strong>Від 1000:</strong> Тисячі + решта (наприклад: 8912 = ottetusind nihundrede og tolv)</p>
+                </div>
+                <div class="items-grid" id="complexNumbersGrid"></div>
+            </div>
+        </div>
         </div>
 
         <footer>
@@ -514,7 +521,7 @@
             moduleBtns.forEach(btn => btn.classList.remove('active'));
             moduleContents.forEach(content => content.classList.remove('active'));
             
-            const activeBtn = document.querySelector(`[onclick="showModule('${moduleName}')"]`);
+            const activeBtn = document.querySelector(`[data-module="${moduleName}"]`);
             if (activeBtn) activeBtn.classList.add('active');
             
             const activeModule = document.getElementById(moduleName);
@@ -528,51 +535,50 @@
             tabs.forEach(tab => tab.classList.remove('active'));
             contents.forEach(content => content.classList.remove('active'));
             
-            const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
+            const activeTab = document.querySelector(`[data-tab="${tabName}"]`);
             if (activeTab) activeTab.classList.add('active');
             
             const activeContent = document.getElementById(tabName);
             if (activeContent) activeContent.classList.add('active');
         }
 
-        // ✅ НОВА ФУНКЦІЯ: тільки данська вимова без транскрипції
-        function playDanishAudio(card, danishText) {
+        function playAudio(text, card) {
             if (currentlyPlaying) {
                 currentlyPlaying.classList.remove('playing');
+                speechSynthesis.cancel();
             }
             
             card.classList.add('playing');
             currentlyPlaying = card;
             
-            const utterance = new SpeechSynthesisUtterance(danishText);
+            const cleanText = text.trim();
+            
+            const utterance = new SpeechSynthesisUtterance(cleanText);
             utterance.lang = 'da-DK';
-            utterance.rate = 0.5;  // Трохи повільніше для букв
-            utterance.pitch = 1.1;
-            utterance.volume = 0.9;
+            utterance.rate = 0.5;
+            utterance.pitch = 1;
+            utterance.volume = 1;
             
             utterance.onend = () => {
                 card.classList.remove('playing');
                 currentlyPlaying = null;
             };
             
-            utterance.onerror = () => {
+            utterance.onerror = (event) => {
+                console.error('Speech synthesis error:', event);
                 card.classList.remove('playing');
                 currentlyPlaying = null;
             };
             
-            speechSynthesis.cancel();
+            const voices = speechSynthesis.getVoices();
+            const danishVoice = voices.find(voice => voice.lang === 'da-DK') || 
+                               voices.find(voice => voice.lang.startsWith('da'));
             
-            // Вибираємо найкращий данський голос
-            setTimeout(() => {
-                const voices = speechSynthesis.getVoices();
-                const danishVoices = voices.filter(voice => 
-                    voice.lang.startsWith('da') || voice.name.toLowerCase().includes('danish')
-                );
-                if (danishVoices.length > 0) {
-                    utterance.voice = danishVoices[0]; // Найкращий голос
-                }
-                speechSynthesis.speak(utterance);
-            }, 50);
+            if (danishVoice) {
+                utterance.voice = danishVoice;
+            }
+            
+            speechSynthesis.speak(utterance);
         }
 
         function createCard(item) {
@@ -583,43 +589,54 @@
                 <div class="item-transcription">${item.transcription}</div>
                 <div class="item-translation">${item.translation}</div>
             `;
-            
-            // ✅ Клік тільки на данську частину для чистої вимови
-            const danishElement = card.querySelector('.item-danish');
-            danishElement.onclick = (e) => {
-                e.stopPropagation();
-                playDanishAudio(card, item.danish);
+            card.onclick = () => {
+                playAudio(item.danish, card);
             };
-            
             return card;
         }
 
         function initializeApp() {
-            speechSynthesis.onvoiceschanged = () => {
-                speechSynthesis.getVoices();
-            };
+            // Завантажуємо голоси при ініціалізації
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = () => {
+                    speechSynthesis.getVoices();
+                };
+            }
             
-            // Створюємо карти без Google TTS
             const alphabetGrid = document.getElementById('alphabetGrid');
-            data.alphabet.forEach(item => alphabetGrid.appendChild(createCard(item)));
+            data.alphabet.forEach(item => {
+                alphabetGrid.appendChild(createCard(item));
+            });
 
             const questionsGrid = document.getElementById('questionsGrid');
-            data.questions.forEach(item => questionsGrid.appendChild(createCard(item)));
+            data.questions.forEach(item => {
+                questionsGrid.appendChild(createCard(item));
+            });
 
             const questionExamplesGrid = document.getElementById('questionExamplesGrid');
-            data.questionExamples.forEach(item => questionExamplesGrid.appendChild(createCard(item)));
+            data.questionExamples.forEach(item => {
+                questionExamplesGrid.appendChild(createCard(item));
+            });
 
             const personalPronounsGrid = document.getElementById('personalPronounsGrid');
-            data.personalPronouns.forEach(item => personalPronounsGrid.appendChild(createCard(item)));
+            data.personalPronouns.forEach(item => {
+                personalPronounsGrid.appendChild(createCard(item));
+            });
 
             const possessivePronounsGrid = document.getElementById('possessivePronounsGrid');
-            data.possessivePronouns.forEach(item => possessivePronounsGrid.appendChild(createCard(item)));
+            data.possessivePronouns.forEach(item => {
+                possessivePronounsGrid.appendChild(createCard(item));
+            });
 
             const numbersGrid = document.getElementById('numbersGrid');
-            data.numbers.forEach(item => numbersGrid.appendChild(createCard(item)));
+            data.numbers.forEach(item => {
+                numbersGrid.appendChild(createCard(item));
+            });
 
             const complexNumbersGrid = document.getElementById('complexNumbersGrid');
-            data.complexNumbers.forEach(item => complexNumbersGrid.appendChild(createCard(item)));
+            data.complexNumbers.forEach(item => {
+                complexNumbersGrid.appendChild(createCard(item));
+            });
         }
 
         initializeApp();
